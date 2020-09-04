@@ -1,7 +1,5 @@
 package benchmark
 
-import java.util.concurrent.TimeUnit
-
 import org.openjdk.jmh.annotations._
 
 import scala.collection.LinearSeq
@@ -13,7 +11,8 @@ class BenchmarkState {
     "10000",
     "100000",
     "1000000",
-    "10000000"))
+    "10000000",
+    "100000000"))
   var inputSize: Int = _
 
   var testSeq: LinearSeq[Int] = _
@@ -26,12 +25,24 @@ class BenchmarkState {
 
 class FoldBenchmark {
   @Benchmark
-  def foldLeft1Baseline(state: BenchmarkState): Int = {
-    state.testSeq.iterator.foldLeft(0)(_ + _ % 1001491)
+  def foldLeftIteratorBaseline(state: BenchmarkState): Int = {
+    state.testSeq.iterator.foldLeft(0)(_ + _)
   }
 
   @Benchmark
-  def foldLeft2Baseline(state: BenchmarkState): Int = {
-    state.testSeq.foldLeft(0)(_ + _ % 1001491)
+  def foldLeftLinearSeqBaseline(state: BenchmarkState): Int = {
+    state.testSeq.foldLeft(0)(_ + _)
+  }
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def foldLeftIteratorNoInline(state: BenchmarkState): Int = {
+    state.testSeq.iterator.foldLeft(0)(_ + _)
+  }
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def foldLeftLinearSeqNoInline(state: BenchmarkState): Int = {
+    state.testSeq.foldLeft(0)(_ + _)
   }
 }
