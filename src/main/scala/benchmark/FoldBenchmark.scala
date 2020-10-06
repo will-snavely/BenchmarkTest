@@ -44,4 +44,14 @@ class FoldBenchmark {
   def foldLeftLinearSeqNoInline(state: BenchmarkState): Int = {
     state.testSeq.foldLeft(0)(_ + _)
   }
+
+  @annotation.tailrec
+  final def foldLeft[A,B](as: LinearSeq[A], z: B)(f : (B,A) => B): B = 
+    if (as.isEmpty) z
+    else foldLeft(as.tail, f(z, as.head))(f)
+  
+  @Benchmark
+  def foldLeftRecursiveBaseLine(state: BenchmarkState): Int = {
+    foldLeft(state.testSeq, 0)(_ + _)
+  }
 }
