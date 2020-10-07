@@ -33,18 +33,6 @@ class FoldBenchmark {
     state.testSeq.foldLeft(0)(_ + _)
   }
 
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def foldLeftIteratorNoInline(state: BenchmarkState): Int = {
-    state.testSeq.iterator.foldLeft(0)(_ + _)
-  }
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def foldLeftLinearSeqNoInline(state: BenchmarkState): Int = {
-    state.testSeq.foldLeft(0)(_ + _)
-  }
-
   @annotation.tailrec
   final def foldLeft[A,B](as: LinearSeq[A], z: B)(f : (B,A) => B): B = 
     if (as.isEmpty) z
