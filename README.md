@@ -16,7 +16,7 @@ docker run --rm jmh-demo sbt jmh:run
 This will take some time to complete (a few hours).
 
 ## Running with SBT
-Install a recent JDK and [sbt](https://www.scala-sbt.org/) to your system, then at the following at the repo root:
+Install a recent JDK and [sbt](https://www.scala-sbt.org/) to your system, then run the the following at the repo root:
 ```
 sbt jmh:run
 ```
