@@ -3,7 +3,7 @@
 This repository demonstrates using the `sbt-jmh` plugin to measure a few implementations of `foldLeft`.
 
 ## Running with Docker
-You can run this demo using docker. First, build the image, by running the following from the repository root:
+[Install docker](https://docs.docker.com/get-docker/), then run the following from the repository root:
 ```
 docker build . -t jmh-demo
 ```
